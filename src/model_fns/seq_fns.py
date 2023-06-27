@@ -4,8 +4,17 @@ import jax.numpy as jnp
 from typing import Callable
 from src.utils import tree_index
 from src.models.rnns.rnn import LSTMMultiLayer,GRUMultiLayer
+from src.models.mlp import FeedForward
 from flax.linen.initializers import constant, orthogonal
 from src.models.transformers.gtrxl import GTrXL
+
+
+def seq_model_feedforward(**kwargs):
+    def thurn():
+        return FeedForward(d_model=kwargs['d_model'],n_layers=kwargs['n_layers'])
+    def initialize():
+        return FeedForward.initialize_state()
+    return thurn,initialize
 
 def seq_model_lstm(**kwargs):
     def thurn():

@@ -98,6 +98,8 @@ class ControlTrainer(BaseTrainer):
             model_fn=seq_model_gru(**self.trainer_config['seq_model'])
         elif self.trainer_config.seq_model.name=='gtrxl':
             model_fn=seq_model_gtrxl(**self.trainer_config['seq_model'])
+        elif self.trainer_config.seq_model.name == "feedforward":
+            model_fn = seq_model_feedforward(**self.trainer_config["seq_model"])
 
         actor_fn=actor_model_discete(self.trainer_config['d_actor'],eval_env.action_space.n)
         critic_fn=critic_model(self.trainer_config['d_critic'])
